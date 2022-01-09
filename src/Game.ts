@@ -1,11 +1,28 @@
-class Game {
-  constructor(screenWidth, screenHeight, canvas, window) {
+import Enemy from "./Enemy";
+import Player from "./Player";
+
+export default class Game {
+  screenWidth: number;
+  screenHeight: number;
+  canvas: HTMLCanvasElement;
+  window: any;
+  fps: number;
+  intervalId: any;
+  player: Player;
+  enemies: Enemy[];
+  context: CanvasRenderingContext2D;
+
+  constructor(screenWidth: number, screenHeight: number, canvas: HTMLCanvasElement, window) {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.canvas = canvas;
     this.window = window;
     this.fps = 1000 / 60;
     this.intervalId;
+    this.player;
+    this.enemies;
+    this.context;
+    this.canvas;
 
     this.configCanvas();
     this.configPlayers();
@@ -27,7 +44,7 @@ class Game {
   }
 
   configCanvas() {
-    this.context = canvas.getContext("2d");
+    this.context = this.canvas.getContext("2d");
     this.canvas.width = this.screenWidth;
     this.canvas.height = this.screenHeight;
   }
@@ -64,7 +81,7 @@ class Game {
   }
 
   clearScreen() {
-    this.context.clearRect(0, 0, canvas.width, canvas.height);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   increaseDificulty() {

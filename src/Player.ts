@@ -1,5 +1,15 @@
-class Player {
-  constructor(initX, intitY, radius = 100, color = "red", context) {
+import Circle from "./Circle";
+
+export default class Player {
+
+  x: number;
+  y: number;
+  radius: number;
+  color: string;
+  context: CanvasRenderingContext2D;
+  circle: Circle;
+
+  constructor(initX: number, intitY: number, radius: number = 100, color:string = "red", context: CanvasRenderingContext2D) {
     this.x = initX;
     this.y = intitY;
     this.radius = radius;
@@ -15,7 +25,7 @@ class Player {
     );
   }
 
-  draw(x, y) {
+  draw(x: number, y: number) {
     this.circle.draw(x, y, this.radius, this.color);
   }
 

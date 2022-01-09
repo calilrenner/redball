@@ -1,5 +1,12 @@
-class Circle {
-  constructor(x, y, radius, color, context) {
+export default class Circle {
+
+  x: number;
+  y: number;
+  radius: number;
+  color: string;
+  context: CanvasRenderingContext2D;
+  
+  constructor(x: number, y: number, radius: number, color: string, context: CanvasRenderingContext2D) {
     this.x = x;
     this.y = y;
     this.radius = radius;
@@ -7,7 +14,7 @@ class Circle {
     this.context = context;
   }
 
-  draw(x, y, radius, color) {
+  draw(x: number, y: number, radius: number, color: string) {
     this.context.beginPath();
     this.context.fillStyle = color;
     this.context.arc(x, y, radius, 0, 2 * Math.PI);

@@ -1,4 +1,6 @@
-const canvas = document.querySelector("#canvas");
+import Game from "./Game";
+
+const canvas: HTMLCanvasElement = document.querySelector("#canvas");
 const screenWidth = window.innerWidth;
 const screenHeight = window.innerHeight;
 

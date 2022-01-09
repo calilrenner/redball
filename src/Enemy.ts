@@ -1,5 +1,18 @@
-class Enemy {
-  constructor(x, y, radius, color, speedX, speedY, context) {
+import Circle from "./Circle";
+
+export default class Enemy {
+
+  x: number;
+  y: number;
+  radius: number;
+  color: string;
+  context: CanvasRenderingContext2D;
+  circle: Circle;
+  speedX: number;
+  speedY: number;
+
+
+  constructor(x: number, y:number, radius: number, color: string, speedX: number, speedY: number, context: CanvasRenderingContext2D) {
     this.x = x;
     this.y = y;
     this.radius = radius;
@@ -17,11 +30,11 @@ class Enemy {
     );
   }
 
-  draw(x, y) {
+  draw(x: number, y: number) {
     this.circle.draw(x, y, this.radius, this.color);
   }
 
-  checkEnemyOutOfScreen(screenWidth, screenHeight) {
+  checkEnemyOutOfScreen(screenWidth: number, screenHeight: number) {
     if (this.x > screenWidth || this.x < 0) {
       this.speedX *= -1;
     }
