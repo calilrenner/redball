@@ -2,9 +2,9 @@ export default class Circle {
 
   x: number;
   y: number;
-  radius: number;
-  color: string;
-  context: CanvasRenderingContext2D;
+  protected radius: number;
+  protected color: string;
+  protected context: CanvasRenderingContext2D;
   
   constructor(x: number, y: number, radius: number, color: string, context: CanvasRenderingContext2D) {
     this.x = x;

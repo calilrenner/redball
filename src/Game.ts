@@ -70,7 +70,7 @@ export default class Game {
       (this.player.x - enemy.x) ** 2 + (this.player.y - enemy.y) ** 2
     );
 
-    if (dist <= this.player.radius + enemy.radius) {
+    if (dist <= this.player.getRadius() + enemy.radius) {
       alert("DEU RUIM");
       this.clearScreen();
       clearInterval(this.intervalId);
