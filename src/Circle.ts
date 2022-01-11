@@ -1,4 +1,7 @@
-export default class Circle {
+import { Drawable } from "./Drawable";
+import Game from "./Game";
+
+export default abstract class Circle implements Drawable{
 
   x: number;
   y: number;
@@ -20,4 +23,6 @@ export default class Circle {
     this.context.arc(x, y, radius, 0, 2 * Math.PI);
     this.context.fill();
   }
+
+  abstract updateState(game: Game);
 }

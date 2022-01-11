@@ -1,3 +1,4 @@
+import { Drawable } from "./Drawable";
 import Enemy from "./Enemy";
 import Player from "./Player";
 
@@ -8,9 +9,9 @@ export default class Game {
   window: any;
   fps: number;
   intervalId: any;
-  player: Player;
-  enemies: Enemy[];
   context: CanvasRenderingContext2D;
+  event: any;
+  circles: Drawable[];
 
   constructor(screenWidth: number, screenHeight: number, canvas: HTMLCanvasElement, window) {
     this.screenWidth = screenWidth;
@@ -19,28 +20,26 @@ export default class Game {
     this.window = window;
     this.fps = 1000 / 60;
     this.intervalId;
-    this.player;
-    this.enemies;
     this.context;
     this.canvas;
+    this.circles = [];
 
     this.configCanvas();
     this.configPlayers();
   }
 
   configPlayers() {
-    this.player = new Player(
+    this.circles.push(new Player(
       this.screenWidth / 2,
       this.screenHeight / 2,
       20,
       "red",
       this.context
-    );
-    this.enemies = [
-      new Enemy(0, 0, 10, "green", 15, 15, this.context),
-      new Enemy(10, 10, 10, "green", 5, 5, this.context),
-      new Enemy(20, 20, 10, "green", 10, 10, this.context),
-    ];
+    ))
+
+    this.circles.push(new Enemy(0, 0, 10, "green", 15, 15, this.context));
+    this.circles.push(new Enemy(10, 10, 10, "green", 5, 5, this.context));
+    this.circles.push(new Enemy(20, 20, 10, "green", 10, 10, this.context));
   }
 
   configCanvas() {
@@ -50,34 +49,12 @@ export default class Game {
   }
 
   movePlayer(event) {
-    this.player.x = event.clientX;
-    this.player.y = event.clientY;
+    this.event = event;
+    //this.circles[0].updateState(this);
   }
 
-  moveEnemy() {
-    this.enemies.map((enemy) => {
-      enemy.x += enemy.speedX;
-      enemy.y += enemy.speedY;
-
-      enemy.draw(enemy.x, enemy.y);
-      enemy.checkEnemyOutOfScreen(this.screenWidth, this.screenHeight);
-      this.checkColision(enemy);
-    });
-  }
-
-  checkColision(enemy) {
-    const dist = Math.sqrt(
-      (this.player.x - enemy.x) ** 2 + (this.player.y - enemy.y) ** 2
-    );
-
-    if (dist <= this.player.getRadius() + enemy.radius) {
-      alert("DEU RUIM");
-      this.clearScreen();
-      clearInterval(this.intervalId);
-      this.enemies = [];
-
-      this.window.location.reload();
-    }
+  getPlayer() {
+    return this.circles[0];
   }
 
   clearScreen() {
@@ -85,8 +62,8 @@ export default class Game {
   }
 
   increaseDificulty() {
-    this.enemies.push(new Enemy(10, 0, 10, "green", 2, 2, this.context));
-    this.player.increaseSize();
+    this.circles.push(new Enemy(10, 0, 10, "green", 2, 2, this.context));
+    //this.circles[0].increaseSize();
   }
 
   turn() {
@@ -97,8 +74,7 @@ export default class Game {
 
   gameLoop() {
     this.clearScreen();
-    this.player.draw(this.player.x, this.player.y);
-    this.moveEnemy();
+    this.circles.map(circle => circle.updateState(this));
   }
 
   start() {
